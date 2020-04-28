@@ -1,0 +1,2 @@
+# Machine-Reading-Comprehension-In-PyTorch
+本仓库的目的在于从最基础的模块到相对前沿的架构较为完整地呈现当前机器阅读理解领域研究的核心知识
