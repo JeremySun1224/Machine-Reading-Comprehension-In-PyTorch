@@ -17,7 +17,7 @@ Prefix dict has been built successfully.
 word: 我, pos: r  # 代词
 word: 爱, pos: v  # 动词
 word: 北京, pos: ns  # 名词，s表示地名
-word: 天安门, pos: ns  # 名词，s表示地名
+word: 天安门, pos: ns
 """
 
 # 英文命名实体识别和词性标注恶意通过spaCy软件包实现
