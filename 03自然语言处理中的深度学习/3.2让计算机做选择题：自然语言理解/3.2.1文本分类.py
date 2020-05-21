@@ -35,7 +35,7 @@ import torch.optim as optim
 
 
 class CNNMaxPooling(nn.Module):
-    def __init__(self, word_dim, window_size, out_channels):  # output_dim表示CNN输出通道数
+    def __init__(self, word_dim, window_size, out_channels):  # out_channels表示CNN输出通道数
         super(CNNMaxPooling, self).__init__()
         # 1个输入通道，out_channels个输出通道，过滤器大小为window_size*word_dim
         self.cnn = nn.Conv2d(in_channels=1, out_channels=out_channels, kernel_size=(window_size, word_dim))
