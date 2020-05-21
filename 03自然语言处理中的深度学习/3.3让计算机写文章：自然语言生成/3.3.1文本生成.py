@@ -4,7 +4,7 @@
 
 """
 生成文本的方式是将状态转化为单词的过程，所以这一网络结构被称为解码器（decoder）。需要注意的
-是，解码器的使用必须从做到右的单向RNN，而不能使用双向RNN，因为解码的过程是依次产生下一个词。
+是，解码器的使用必须从左到右的单向RNN，而不能使用双向RNN，因为解码的过程是依次产生下一个词。
 使用双向RNN会导致模型在训练时“偷看”后面的词从而达到近100%的准确率，但这样训练出来的参数是
 没有意义的。
 
@@ -72,7 +72,7 @@ optimizer = optim.SGD(net.parameters(), lr=1)
 word_scores = net(x_id, y_id)  # 每个位置词表中每个单词的得分word_scores，维度为30*8*vocab_size
 loss_func = nn.CrossEntropyLoss()
 # 将word_scores变为二维数组，y_id变为一维数组，计算损失函数
-loss = loss_func(word_scores[:, : -1, :].reshape(-1, vocab_size), y_id[:, 1:].reshape(-1))
+loss = loss_func(word_scores[:, : -1, :].reshape(-1, vocab_size), y_id[:, 1:].reshape(-1))  # :-1表示对应生成文本第2，3,4...个词。
 print('loss1 = {loss1}'.format(loss1=loss))
 optimizer.zero_grad()
 loss.backward()
@@ -84,4 +84,15 @@ print('loss2 = {loss2}'.format(loss2=loss))
 """
 loss1 = 4.629878044128418
 loss2 = 4.572292327880859
+"""
+
+"""
+上述代码采用了单词在字典中的编号作为输入，即输入文本的词编号为x_id，真值输出文本的词编号
+为y_id。模型使用PyTorch自带的词向量参数矩阵nn.Embedding，它的作用是将词编号变为对应的
+词向量。获得词向量后，模型首先用CNN和最大池化将每段输入文本用一个向量表示，然后将这个向量
+作为初始状态输入到RNN。由于使用了teacher forcing，所以每一步RNN的输入是标准答案文本中
+词向量。
+
+在计算交叉熵时，由于nn.CrossEntropyLoss函数默认第二维是类别分数，因此需要将word_scores
+这个三维张量batch*y_seq_len*vocab_size降为2维。
 """
