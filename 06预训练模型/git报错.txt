@@ -1,0 +1,19 @@
+$ vim /etc/hosts
+
+1.
+Host github.com
+User 2113751293@qq.com
+Hostname ssh.github.com
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa
+Port 443
+
+git config --global user.name "jeremysun1224"
+git config --global user.email 2113751293@qq.com
+
+18.141.90.153
+
+2.
+Host github.com
+  Hostname ssh.github.com
+  Port 443
