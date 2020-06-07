@@ -5,3 +5,8 @@
 # pip install -r requirements.txt
 # 安装CoVe
 # python setup.py develop
+import torch
+import torchvision
+
+print(torch.__version__)
+print(torchvision.__version__)
